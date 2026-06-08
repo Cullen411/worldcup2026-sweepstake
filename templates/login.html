@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Admin Login – WC 2026{% endblock %}
+
+{% block extra_head %}
+<style>
+.login-wrap {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+.login-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+}
+.login-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+.login-card h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+}
+.login-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+.login-card input {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+}
+.login-card .btn { width: 100%; justify-content: center; padding: 0.65rem; font-size: 0.95rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-wrap">
+    <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <h1>Admin Access</h1>
+        <p>Enter your admin password to manage the sweepstake</p>
+        {% if error %}
+            <div class="flash flash-error">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <input type="password" name="password" placeholder="Enter password" autofocus required>
+            <button type="submit" class="btn btn-gold">Unlock Panel</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

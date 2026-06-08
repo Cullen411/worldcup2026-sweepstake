@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a5c30">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="WC2026">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="/static/icon-192.png">
+    <title>{% block title %}{{ site_title }}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --grass: #1a6b2a;
+            --grass-light: #228b36;
+            --grass-dark: #0f4019;
+            --gold: #f0c040;
+            --gold-dark: #c9962a;
+            --white: #f5f5f0;
+            --off-white: #edeae0;
+            --dark: #0d1a10;
+            --mid: #1e3a22;
+            --accent: #e84040;
+            --accent2: #3a8fff;
+            --text-muted: #7aaa82;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.10);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--dark);
+            color: var(--white);
+            font-family: 'Barlow', sans-serif;
+            font-size: 15px;
+            min-height: 100vh;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 120px),
+                linear-gradient(160deg, #0d2e14 0%, #0a1a0d 60%, #060f07 100%);
+        }
+
+        /* ── Header ── */
+        .site-header {
+            background: linear-gradient(90deg, var(--grass-dark) 0%, var(--grass) 50%, var(--grass-dark) 100%);
+            border-bottom: 3px solid var(--gold);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+        }
+        .site-header .logo {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            line-height: 1.25;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .site-header .logo .logo-sub {
+            display: block;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 600;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .header-nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .header-nav a {
+            display: inline-block;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.45rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .header-nav a:hover { background: rgba(255,255,255,0.14); }
+        .header-nav a.admin-link {
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        .header-nav a.admin-link:hover { background: rgba(240,192,64,0.15); }
+
+        /* ── Layout ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* ── Section titles ── */
+        .section-title {
+            font-family: 'Black Han Sans', sans-serif; font-size: 1.2rem; color: var(--gold);
+            letter-spacing: 0.04em; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem;
+        }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(240,192,64,0.4), transparent); margin-left: 0.5rem; }
+
+        /* ── Cards ── */
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 1.25rem; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem;
+            border-radius: 6px; border: none; font-family: 'Barlow', sans-serif; font-weight: 700;
+            font-size: 0.85rem; letter-spacing: 0.05em; cursor: pointer; text-decoration: none; transition: all 0.2s;
+        }
+        .btn-gold { background: var(--gold); color: var(--dark); }
+        .btn-gold:hover { background: var(--gold-dark); transform: translateY(-1px); }
+        .btn-red { background: var(--accent); color: white; }
+        .btn-red:hover { background: #c52e2e; }
+        .btn-green { background: var(--grass); color: white; border: 1px solid var(--grass-light); }
+        .btn-green:hover { background: var(--grass-light); }
+        .btn-ghost { background: transparent; color: var(--white); border: 1px solid var(--card-border); }
+        .btn-ghost:hover { background: var(--card-bg); }
+        .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.78rem; }
+
+        /* ── Badges ── */
+        .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+        .badge-upcoming { background: rgba(255,255,255,0.1); color: var(--text-muted); }
+        .badge-live { background: var(--accent); color: white; animation: pulse 1.5s infinite; }
+        .badge-completed { background: rgba(26,107,42,0.5); color: #7aff8a; border: 1px solid rgba(26,107,42,0.8); }
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.7} }
+
+        /* ── Forms ── */
+        input, select {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+            color: var(--white); padding: 0.5rem 0.8rem; font-family: 'Barlow', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+        }
+        input:focus, select:focus { border-color: var(--gold); }
+        select option { background: #1e3a22; }
+        label { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); text-transform: uppercase; }
+
+        /* ── Tabs ── */
+        .tab-nav { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .tab-btn { padding: 0.45rem 1rem; border-radius: 20px; border: 1px solid var(--card-border); background: transparent; color: var(--text-muted); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.82rem; cursor: pointer; letter-spacing: 0.04em; transition: all 0.2s; }
+        .tab-btn.active, .tab-btn:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        @media (max-width: 600px) {
+            .site-header { padding: 0 1rem; }
+            .container { padding: 1.25rem 1rem; }
+            .site-header .logo .logo-sub { display: none; }
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <a href="{{ url_for('index') }}" class="logo">
+            ⚽ World Cup 2026 SweepStake
+            <span class="logo-sub">USA · Canada · Mexico · 11 Jun – 19 Jul 2026</span>
+        </a>
+        <nav class="header-nav">
+            {% if session.get('admin') %}
+                <a href="{{ url_for('admin_panel') }}" class="admin-link">⚙ Admin</a>
+                <a href="{{ url_for('admin_logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('admin_login') }}" class="admin-link">🔐 Admin</a>
+            {% endif %}
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>
