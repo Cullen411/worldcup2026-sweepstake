@@ -1,4 +1,4 @@
-# ⚽ World Cup 2026 Sweepstake — Synology Setup Guide
+# ⚽ World Cup 2026 Sweepstake — Setup Guide
 
 ## What you get
 - **Public view**: Everyone can see the draw and tournament bracket at `http://YOUR-NAS-IP:8888`
